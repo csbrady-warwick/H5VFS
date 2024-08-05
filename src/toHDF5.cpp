@@ -832,20 +832,16 @@ size_t coalescetoHDF5(int level, const std::string &basePath, const std::string 
 	stat(path.c_str(), &result);
 	if (S_ISDIR(result.st_mode))
 	{
-		std::cout << "Processing directory " << path << std::endl;
 		itemCount+=(handleDirectory(parentGroup, level, basePath, path, opts));
 	} else if (S_ISREG(result.st_mode))
 	{
-		std::cout << "Processing file " << path << std::endl;
 		itemCount+=(handleFile(parentGroup, level, basePath, path, opts));
 	}
 	else if (S_ISLNK(result.st_mode))
 	{
-		std::cout << "Processing symlink " << path << std::endl;
 		// If it is a symlink then store it as a file
 		itemCount+=(handleFile(parentGroup, level, basePath, path, opts));
 	} else {
-		std::cout << "Processing unknown file type " << path << std::endl;
 	}
 	return itemCount;
 }
